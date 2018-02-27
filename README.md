@@ -1,4 +1,4 @@
-# jinja2-template
+# node-jinja2-template
 
 在 `node` 中，运行 `jinja2` 模板，并返回运行后的结果。
 
