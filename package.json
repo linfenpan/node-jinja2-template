@@ -1,0 +1,26 @@
+{
+  "name": "node-jinja2-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "cd test && node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linfenpan/node-jinja2-template.git"
+  },
+  "keywords": [
+    "jinja2",
+    "python"
+  ],
+  "author": "da宗熊",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/linfenpan/node-jinja2-template/issues"
+  },
+  "homepage": "https://github.com/linfenpan/node-jinja2-template#readme",
+  "dependencies": {
+    "fs-extra": "^5.0.0"
+  }
+}
