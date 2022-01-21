@@ -49,7 +49,7 @@ class Template {
       const options = this.options;
       const tmpDir = this.pythonDir;
       const fileName = this.generateId();
-      console.log(fileName);
+      // console.log(fileName);
       const runFilepath = path.join(tmpDir, `./.run_${fileName}.py`);
       const dataFilepath = path.join(tmpDir, `./.data_${fileName}.json`);
       fs.ensureFileSync(runFilepath);
