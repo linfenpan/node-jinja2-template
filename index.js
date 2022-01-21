@@ -18,9 +18,11 @@ class Template {
     this.options = Object.assign({
       runFile: path.resolve(__dirname, './python/run.py'),
       otherContent: '',
-      extraData: { }
+      extraData: { },
+      idGenerator: null
     }, options || {});
 
+    this._selfId = 1;
     this.pythonFilepath = this.options.runFile;
     this.pythonDir = path.dirname(this.pythonFilepath);
   }
@@ -31,12 +33,23 @@ class Template {
     });
   }
 
+  generateId() {
+    if (typeof this.options.idGenerator === 'function') {
+      if (this._selfId >= 9999999999) {
+        this._selfId = 1;
+      }
+      return this.options.idGenerator().toString() + this._selfId++;
+    }
+    return uuid.v4() + '-' + Date.now();
+  }
+
   // 生成临时文件，并且运行
   buid(nameTemplate, data) {
     return new Promise((resolve, reject) => {
       const options = this.options;
       const tmpDir = this.pythonDir;
-      const fileName = uuid.v4() + '-' + Date.now();
+      const fileName = this.generateId();
+      console.log(fileName);
       const runFilepath = path.join(tmpDir, `./.run_${fileName}.py`);
       const dataFilepath = path.join(tmpDir, `./.data_${fileName}.json`);
       fs.ensureFileSync(runFilepath);

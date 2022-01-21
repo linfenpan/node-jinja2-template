@@ -3,7 +3,11 @@ const pkg = require('../package.json');
 const path = require('path');
 const Jinja2Template = require('../index');
 
-const template1 = new Jinja2Template([ path.resolve('./template') ]);
+const template1 = new Jinja2Template([ path.resolve('./template') ], {
+  idGenerator() {
+    return 'tx1-'
+  }
+});
 
 template1.render('index.html', { name: pkg.author })
   .then(function(res) {
@@ -15,7 +19,10 @@ template1.render('index.html', { name: pkg.author })
 // 更改运行的文件
 // 可以在新的运行文件中，尝试添加各种 filter，extension
 const template2 = new Jinja2Template([ path.resolve('./template') ], {
-  runFile: path.resolve('./run.test.py')
+  runFile: path.resolve('./run.test.py'),
+  // idGenerator() {
+  //   return 'tx2-'
+  // }
 });
 template2.render('index.html', { name: pkg.author })
   .then(function(res) {

@@ -18,7 +18,11 @@ const template = new Jinja2Template(
     path.resolve('./template') 
   ],
   {
-    runFile: '被运行的 py 文件模板，请参考 python/run.py 进行编写，如果不指定，就使用默认的运行模板'
+    runFile: '被运行的 py 文件模板，请参考 python/run.py 进行编写，如果不指定，就使用默认的运行模板',
+    idGenerator() {
+      // 自定义每次运行的 文件 id，可不设置，保留 null
+      return Date.now();
+    }
   }
 );
 
