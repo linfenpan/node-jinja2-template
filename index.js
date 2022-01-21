@@ -3,6 +3,7 @@
 const path = require('path');
 const exec = require('child_process').exec;
 const fs = require('fs-extra');
+const uuid = require('uuid');
 
 class Template {
   // @param {String} [dirsTemplate] 模板文件所在目录列表！
@@ -35,8 +36,9 @@ class Template {
     return new Promise((resolve, reject) => {
       const options = this.options;
       const tmpDir = this.pythonDir;
-      const runFilepath = path.join(tmpDir, `./.run_${Date.now()}.py`);
-      const dataFilepath = path.join(tmpDir, `./.data_${Date.now()}.json`);
+      const fileName = uuid.v4() + '-' + Date.now();
+      const runFilepath = path.join(tmpDir, `./.run_${fileName}.py`);
+      const dataFilepath = path.join(tmpDir, `./.data_${fileName}.json`);
       fs.ensureFileSync(runFilepath);
       fs.ensureFileSync(dataFilepath);
 
@@ -52,7 +54,7 @@ class Template {
       fs.writeFileSync(runFilepath, fileTempateStr.replace(/\${([^}]+)}/g, (str, key) => {
         return key in fileTempateOpts ? fileTempateOpts[key] : '${'+ key +'}';
       }));
-
+      
       exec(`python ${runFilepath}`, (error, stdout, stderr) => {
         fs.removeSync(runFilepath);
         fs.removeSync(dataFilepath);
